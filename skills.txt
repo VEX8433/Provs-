@@ -1,0 +1,132 @@
+/* CODEGEN EXPORT: LemLib */
+
+chassis.setPose(-49.920000, 15.120000, 85.236000);
+
+chassis.turnToHeading(90.0, 503);
+chassis.moveToPoint(-36.24, 15.12, 1245);
+pros::delay(50);
+chassis.turnToHeading(52.815294, 805);
+chassis.moveToPoint(-22.32, 25.68, 1379);
+pros::delay(50);
+chassis.turnToHeading(312.633752, 1192);
+chassis.moveToPoint(-7.2, 11.76, 1478, {.forwards = false});
+chassis.waitUntil(18.35462);
+middle_goal_score(true)
+chassis.waitUntilDone();
+pros::delay(2000);
+chassis.turnToHeading(318.868204, 536);
+chassis.moveToPoint(-38.64, 47.76, 2141);
+chassis.waitUntil(11.144602);
+middle_goal_score(false)
+chassis.waitUntilDone();
+pros::delay(50);
+chassis.turnToHeading(258.310631, 969);
+chassis.moveToPoint(-45.6, 46.32, 1012);
+chassis.waitUntil(0.481858);
+matchload_activate(true)
+chassis.waitUntilDone();
+pros::delay(300);
+chassis.turnToHeading(270.734521, 646);
+chassis.moveToPoint(-64.32, 46.56, 1420);
+pros::delay(2000);
+chassis.moveToPoint(-45.12, 46.32, 1436, {.forwards = false});
+chassis.waitUntil(14.629714);
+matchload_activate(false)
+chassis.waitUntilDone();
+pros::delay(50);
+chassis.turnToHeading(24.034288, 1258);
+chassis.moveToPoint(-37.2, 64.08, 1443);
+pros::delay(50);
+chassis.turnToHeading(88.174458, 991);
+chassis.moveToPoint(-19.922253, 64.630685, 1373);
+pros::delay(50);
+chassis.moveToPoint(-3.843288, 65.143162, 1332);
+pros::delay(50);
+chassis.moveToPoint(10.100794, 65.587595, 1255);
+pros::delay(50);
+chassis.moveToPoint(23.04, 66.0, 1217);
+pros::delay(50);
+chassis.turnToHeading(91.487868, 465);
+chassis.moveToPoint(41.52, 65.52, 1413);
+pros::delay(50);
+chassis.turnToHeading(177.207298, 1116);
+chassis.moveToPoint(42.0, 55.68, 1573);
+pros::delay(50);
+chassis.turnToHeading(90.855097, 1120);
+chassis.moveToPoint(25.92, 55.92, 1332, {.forwards = false});
+chassis.waitUntil(11.940754);
+long_goal_score(true)
+chassis.waitUntilDone();
+pros::delay(2500);
+chassis.turnToHeading(89.370401, 461);
+chassis.moveToPoint(47.76, 56.16, 1518);
+chassis.waitUntil(16.507699);
+matchload_activate(true)
+chassis.waitUntilDone();
+pros::delay(500);
+chassis.turnToHeading(90.77422, 461);
+chassis.moveToPoint(65.52, 55.92, 1389);
+pros::delay(2000);
+chassis.turnToHeading(90.0, 461);
+chassis.moveToPoint(26.16, 55.92, 4912, {.forwards = false});
+chassis.waitUntil(32.81013);
+long_goal_score(true)
+chassis.waitUntilDone();
+pros::delay(2500);
+chassis.moveToPoint(48.72, 55.92, 1539);
+pros::delay(50);
+chassis.turnToHeading(192.528808, 1204);
+chassis.moveToPoint(30.48, -26.16, 2975);
+pros::delay(50);
+chassis.turnToHeading(144.833564, 883);
+chassis.moveToPoint(45.36, -47.28, 1634);
+chassis.waitUntil(21.38118);
+match_load_activate(true)
+chassis.waitUntilDone();
+pros::delay(500);
+chassis.turnToHeading(88.472475, 941);
+chassis.moveToPoint(63.36, -46.8, 1397);
+pros::delay(3000);
+chassis.turnToHeading(89.255941, 461);
+chassis.moveToPoint(44.88, -47.04, 3727, {.forwards = false});
+chassis.waitUntil(13.722215);
+matchload_activate(false)
+chassis.waitUntilDone();
+pros::delay(50);
+chassis.turnToHeading(222.909841, 1317);
+chassis.moveToPoint(29.04, -64.08, 1561);
+pros::delay(50);
+chassis.turnToHeading(270.739259, 884);
+chassis.moveToPoint(-45.36, -63.12, 2753);
+pros::delay(50);
+chassis.turnToHeading(354.897835, 1108);
+chassis.moveToPoint(-46.56, -49.68, 1237);
+pros::delay(50);
+chassis.turnToHeading(270.0, 1112);
+chassis.moveToPoint(-24.48, -49.68, 1525, {.forwards = false});
+chassis.waitUntil(13.893972);
+long_goal_score(true)
+chassis.waitUntilDone();
+pros::delay(50);
+chassis.moveToPoint(-61.44, -49.44, 1870);
+chassis.waitUntil(22.799519);
+matchload_activate(true)
+chassis.waitUntilDone();
+pros::delay(50);
+chassis.moveToPoint(-51.84, -49.44, 1941, {.forwards = false});
+pros::delay(500);
+chassis.moveToPoint(-24.96, -49.44, 1663, {.forwards = false});
+chassis.waitUntil(20.017067);
+long_goal_score(true)
+chassis.waitUntilDone();
+pros::delay(50);
+chassis.turnToHeading(268.898294, 461);
+chassis.moveToPoint(-37.44, -49.68, 1199);
+pros::delay(50);
+chassis.turnToHeading(319.820766, 906);
+chassis.moveToPoint(-64.8, -17.28, 2006);
+pros::delay(50);
+chassis.turnToHeading(0.806929, 834);
+chassis.moveToPoint(-64.56, -0.24, 1364);
+
+// Estimated total time: 63.92 s

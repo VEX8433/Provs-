@@ -1,0 +1,733 @@
+{
+    "initial": {
+        "position": [
+            300.0,
+            550
+        ],
+        "heading": 94.764
+    },
+    "nodes": [
+        {
+            "pos": [
+                237,
+                508
+            ],
+            "reverse": false,
+            "actions": [],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "path_to_next": {
+                "pose_end_heading": 135.0
+            },
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                237,
+                451
+            ],
+            "path_to_next": {},
+            "edge_events": [],
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                193,
+                393
+            ],
+            "reverse": true,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "chain_through": true,
+            "path_to_next": {
+                "pose_end_heading": 315.0
+            },
+            "edge_events": [
+                {
+                    "t": 0.8930860493658803,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "middle_goal_score(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                251,
+                330
+            ],
+            "path_to_next": {
+                "pose_end_heading": 225.0
+            },
+            "reverse": true,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                },
+                {
+                    "type": "wait",
+                    "s": 2.0
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "edge_events": [
+                {
+                    "t": 0.23316937633762624,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "middle_goal_score(false)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "fast"
+            }
+        },
+        {
+            "pos": [
+                101,
+                461
+            ],
+            "path_to_next": {
+                "pose_end_heading": 270.0
+            },
+            "reverse": false,
+            "actions": [],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "edge_events": [
+                {
+                    "t": 0.06779661016949153,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "matchload_activate(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "precise"
+            }
+        },
+        {
+            "pos": [
+                107,
+                490
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "wait",
+                    "s": 0.3
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                106,
+                568
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                },
+                {
+                    "type": "wait",
+                    "s": 2.0
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "edge_events": [
+                {
+                    "t": 0.7619047619047619,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "matchload_activate(false)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                107,
+                488
+            ],
+            "path_to_next": {},
+            "reverse": true,
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                33,
+                455
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "chain_through": false,
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                30.705478474589707,
+                383.0093871402521
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                28.57015777372552,
+                316.0137001506382
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                26.718354079124712,
+                257.91335923253786
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                25,
+                204
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                27,
+                127
+            ],
+            "path_to_next": {
+                "pose_end_heading": 60.0
+            },
+            "reverse": false,
+            "actions": [],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "custom_lateral_cmd": 50.0,
+            "profile_override": "custom",
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "custom"
+            }
+        },
+        {
+            "pos": [
+                68,
+                125
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "edge_events": [
+                {
+                    "t": 0.7425015302999388,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "long_goal_score(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                67,
+                192
+            ],
+            "reverse": true,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                },
+                {
+                    "type": "wait",
+                    "s": 2.5
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "path_to_next": {},
+            "edge_events": [
+                {
+                    "t": 0.7558014031300594,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "matchload_activate(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                66,
+                101
+            ],
+            "edge_events": [],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "wait",
+                    "s": 0.5
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                67,
+                27
+            ],
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                },
+                {
+                    "type": "wait",
+                    "s": 2.0
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "path_to_next": {},
+            "custom_lateral_cmd": 30.0,
+            "profile_override": "custom",
+            "edge_events": [
+                {
+                    "t": 0.8335906985193933,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "long_goal_score(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "custom"
+            }
+        },
+        {
+            "pos": [
+                67,
+                191
+            ],
+            "path_to_next": {},
+            "reverse": true,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                },
+                {
+                    "type": "wait",
+                    "s": 2.5
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "edge_events": [],
+            "profile_info": {
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                67,
+                97
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "fast"
+            }
+        },
+        {
+            "pos": [
+                409,
+                173
+            ],
+            "path_to_next": {},
+            "edge_events": [
+                {
+                    "t": 0.8275918102047449,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "match_load_activate(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                497,
+                111
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "wait",
+                    "s": 0.5
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                495,
+                36
+            ],
+            "path_to_next": {},
+            "reverse": true,
+            "custom_lateral_cmd": 20.0,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                },
+                {
+                    "type": "wait",
+                    "s": 3.0
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "profile_override": "custom",
+            "edge_events": [
+                {
+                    "t": 0.7424815119145439,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "matchload_activate(false)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "custom"
+            }
+        },
+        {
+            "pos": [
+                496,
+                113
+            ],
+            "path_to_next": {},
+            "reverse": true,
+            "profile_info": {
+                "turn_profile": "fast",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                567,
+                179
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "chain_through": false,
+            "actions": [],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "fast"
+            }
+        },
+        {
+            "pos": [
+                563,
+                489
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                507,
+                494
+            ],
+            "path_to_next": {},
+            "reverse": true,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "edge_events": [
+                {
+                    "t": 0.6292559899117276,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "long_goal_score(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                507,
+                402
+            ],
+            "path_to_next": {},
+            "reverse": true,
+            "edge_events": [
+                {
+                    "t": 0.6168571067167011,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "matchload_activate(true)"
+                        }
+                    ]
+                }
+            ],
+            "profile_info": {
+                "drive_profile": "fast"
+            }
+        },
+        {
+            "pos": [
+                506,
+                556
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "reverse",
+                    "state": null
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "custom_lateral_cmd": 30.0,
+            "profile_override": "custom",
+            "profile_info": {
+                "drive_profile": "custom"
+            }
+        },
+        {
+            "pos": [
+                506.0,
+                516.0
+            ],
+            "edge_events": [
+                {
+                    "t": 0.7446825568129259,
+                    "enabled": true,
+                    "actions": [
+                        {
+                            "kind": "code",
+                            "code": "long_goal_score(true)"
+                        }
+                    ]
+                }
+            ],
+            "path_to_next": {},
+            "reverse": false,
+            "actions": [
+                {
+                    "type": "wait",
+                    "s": 0.5
+                }
+            ],
+            "turn_mode": "turn",
+            "swing_dir": "auto",
+            "move_to_pose": false,
+            "profile_info": {
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                506,
+                404
+            ],
+            "reverse": true,
+            "path_to_next": {},
+            "profile_info": {
+                "turn_profile": "precise",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                507,
+                456
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "fast"
+            }
+        },
+        {
+            "pos": [
+                372,
+                570
+            ],
+            "path_to_next": {},
+            "profile_info": {
+                "turn_profile": "normal",
+                "drive_profile": "normal"
+            }
+        },
+        {
+            "pos": [
+                301,
+                569
+            ]
+        }
+    ]
+}
