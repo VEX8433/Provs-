@@ -176,21 +176,25 @@ void rightside7(){
 
 	changeIntakeState(false, true, false, false, false, false);
 
-	chassis.moveToPose(13, 32, 24, 2000, {.maxSpeed = 60});
-	pros::delay(1000);
+	chassis.moveToPose(13, 32, 24, 2000, {.minSpeed = 60});
+	pros::delay(500);
 	tongue.set_value(true);
+	chassis.waitUntilDone();
+	pros::delay(200);
 	chassis.turnToHeading(130, 600, {}, false);
-	chassis.moveToPoint(37, 6, 1500);
-	chassis.turnToHeading(180,  1000);
-	chassis.moveToPose(37 ,-20, 180, 1600, {.maxSpeed = 40});
+	
+	chassis.moveToPoint(37, 6, 1000, {.earlyExitRange = 1});
+	chassis.turnToHeading(180,  300);
+
+	
+	chassis.moveToPose(37 ,-20, 180, 1600, {.maxSpeed = 80, .minSpeed = 50});
 	tongue.set_value(true);
-	chassis.moveToPose(37, 30, 180,  1000, {.forwards = false, .minSpeed = 90}, false);
+	chassis.moveToPose(37, 30, 180,  1000, {.forwards = false, .minSpeed = 100}, false);
 	changeIntakeState(false, false, true, false, false, false);
 	pros::delay(1800);
 	tongue.set_value(false);
-	chassis.moveToPoint(37, 17, 1000, {.minSpeed = 60}, false);
-	chassis.turnToHeading(130, 1000);
-	chassis.moveToPoint(27, 20, 1000, {.forwards = false});
+	
+	chassis.moveToPoint(27, 10, 1000);
 	chassis.turnToHeading(180, 1000, {}, false);
 	doinker.set_value(false);
 	chassis.moveToPoint(27, 40, 3000, {.forwards=false,.maxSpeed = 60}, false);
@@ -201,33 +205,81 @@ void leftside(){
 	doinker.set_value(true);
 
 	changeIntakeState(false, true, false, false, false, false);
-	chassis.moveToPose( -13, 32, -21, 2000, {.minSpeed = 50});
-	pros::delay(1000);
+	chassis.moveToPose( -10, 26, -21, 1500, {.minSpeed = 60});
+	pros::delay(600);
 	tongue.set_value(true);
-	chassis.moveToPose( -13, 32, -21, 500, {.minSpeed = 50}, false);
+	chassis.waitUntilDone();
+	//chassis.moveToPose( -13.5, 31.5, -21, 500, {.minSpeed = 60}, false);
 	pros::delay(200);
-	chassis.turnToHeading(-125, 1000, {}, false); // fix
-	changeIntakeState(false, false, false, false, false, true);
-	chassis.moveToPose(10, 44, -131, 1000,{.forwards=false, .minSpeed = 60}, false);
-	changeIntakeState(false, false, false, true, false, false);
+	chassis.turnToHeading(-125, 250, {}, false); // fix
+	//back into midgoal
+	chassis.moveToPose(9.5, 43.5, -131, 1000,{.forwards=false, .minSpeed = 60});
 	pros::delay(500);
+	changeIntakeState(false, false, false, false, false, true);
+	chassis.waitUntilDone();
+
+	changeIntakeState(false, false, false, true, false, false);
+	pros::delay(800);
 	changeIntakeState(false, true, false, false, false, false);
-	chassis.moveToPoint(-38, 8, 2000, {.maxSpeed = 90});
+	chassis.moveToPoint(-37, 3, 1500, {.maxSpeed = 90});
 	pros::delay(200);
-	chassis.turnToHeading(180, 1000);
+
+	chassis.turnToHeading(180, 250);
 	tongue.set_value(true);
-	chassis.moveToPoint(-38, -20, 1500, {.maxSpeed = 40});
-	chassis.moveToPoint(-38, 30, 1200, {.forwards=false,.maxSpeed = 80}, false);
+	// go into match load
+	chassis.moveToPoint(-37, -20, 1600, {.maxSpeed = 50});
+	chassis.moveToPoint(-37, 30, 1200, {.forwards=false,.maxSpeed = 80}, false);
+	
 	changeIntakeState(false, false, true, false, false, false);
-	pros::delay(2000);
+	pros::delay(1500);
 	tongue.set_value(false);
-	chassis.moveToPoint(-38, 17, 1000, {.minSpeed = 60}, false);
-	chassis.turnToHeading(110, 1000);
-	chassis.moveToPoint(-46, 19, 1000, {.forwards = false});
+	// back out of long goal
+	chassis.moveToPoint(-46, 10, 1000);
 	chassis.turnToHeading(180, 1000, {}, false);
 	doinker.set_value(false);
-	chassis.moveToPoint(-46, 38, 3000, {.forwards=false,.minSpeed = 90}, false);
-	// chassis.turnToHeading(150, 3000, {.minSpeed = 50});
+	chassis.moveToPoint(-46, 32.5, 3000, {.forwards=false,.minSpeed = 80}, false);
+}
+
+void leftsideAlt(){
+	chassis.setPose(0, 0, 0);
+	doinker.set_value(true);
+
+	changeIntakeState(false, true, false, false, false, false);
+	chassis.moveToPose( -10, 26, -21, 1500, {.minSpeed = 60});
+	pros::delay(600);
+	tongue.set_value(true);
+	chassis.waitUntilDone();
+	//chassis.moveToPose( -13.5, 31.5, -21, 500, {.minSpeed = 60}, false);
+	pros::delay(200);
+	chassis.turnToHeading(-125, 250, {}, false); // fix
+
+	chassis.moveToPoint(-37, 3, 1500, {.maxSpeed = 90});
+	pros::delay(200);
+
+	chassis.turnToHeading(180, 250);
+	tongue.set_value(true);
+	// go into match load
+	chassis.moveToPoint(-36, -20, 1600, {.maxSpeed = 50});
+	chassis.moveToPoint(-36, 30, 1200, {.forwards=false,.maxSpeed = 80}, false);
+	
+	changeIntakeState(false, false, true, false, false, false);
+	pros::delay(700);
+	changeIntakeState(false, true, false, false, false, false);
+	tongue.set_value(false);
+	// back out of long goal
+	chassis.moveToPoint(-36, 7, 1000, {}, false);
+	changeIntakeState(false, false, false, false, false, true);
+	chassis.moveToPose(9.5, 43.5, -131, 2000,{.forwards=false, .minSpeed = 80}, false);
+	changeIntakeState(false, false, false, true, false, false);
+	pros::delay(1000);
+	changeIntakeState(false, true, false, false, false, false);
+
+	chassis.moveToPoint(-23, 15, 1000);
+	
+	chassis.turnToHeading(0, 1000, {}, false);
+	doinker.set_value(false);
+	chassis.moveToPoint(-23, 30, 3000, {.minSpeed = 80}, false);
+	chassis.turnToHeading(45, 1000);
 }
 
 void rightside4plus3(){
@@ -265,7 +317,46 @@ void rightside4plus3(){
 }
 
 void skills(){}
-void soloAWP(){}
+void soloAWP(){
+	chassis.setPose(-10, -2, 270);
+	changeIntakeState(false, true, false, false, false, false);
+	chassis.moveToPoint(-20, -2, 400, {.minSpeed = 60});
+	chassis.moveToPoint(32, 3, 5000, {.forwards=false, .minSpeed = 60}, false);
+	pros::delay(200);
+	chassis.turnToHeading(180, 300);
+	tongue.set_value(true);
+
+	chassis.moveToPose(36, -20, 180, 1500, {.maxSpeed = 50, .minSpeed = 50});
+	chassis.moveToPose(36, 30, 180,  900, {.forwards = false, .minSpeed = 100}, false);
+	chassis.moveToPose(36, 50, 180,  800, {.forwards = false, .maxSpeed = 20});
+	changeIntakeState(false, false, true, false, false, false);
+	pros::delay(1000);
+	tongue.set_value(false);
+
+	chassis.turnToHeading(270, 700, {.maxSpeed=80});
+	pros::delay(400);
+	changeIntakeState(false, true, false, false, false, false);
+	chassis.waitUntilDone();
+	chassis.setPose(27, 20, chassis.getPose().theta);
+	chassis.moveToPoint(0, 22, 1000, {.maxSpeed = 80, .earlyExitRange = 3});
+
+	chassis.moveToPoint(-40, 22, 1400, {.maxSpeed = 100});
+	pros::delay(700);
+	tongue.set_value(true);
+	chassis.turnToHeading(225, 300, {}, false);
+	changeIntakeState(false, false, false, false, false, true);
+	chassis.moveToPoint(-10, 60, 600, {.forwards=false}, false);
+	changeIntakeState(false, false, false, true, false, false);
+	pros::delay(700);
+	changeIntakeState(false, true, false, false, false, false);
+
+	chassis.moveToPoint(-66, 0, 1500, {.maxSpeed = 90});
+	chassis.turnToHeading(180, 300);
+	chassis.moveToPoint(-66, -20, 1500, {.maxSpeed = 50});
+	chassis.moveToPose(-67, 40, 180, 800, {.forwards = false, .minSpeed = 80}, false);
+	chassis.moveToPose(-67, 50, 180,  900, {.forwards = false, .maxSpeed = 40});
+	changeIntakeState(false, false, true, false, false, false);
+} 
 
 bool auton = true;
 void intakeAutonController(){
@@ -310,7 +401,7 @@ void intakeAutonController(){
 		}
 		else if(scoreMid){
 			intakeRaise.set_value(false);
-			intakeTop.move_velocity(600);
+			intakeTop.move_velocity(400);
 			intakeBottom.move_velocity(600);
 			hood.set_value(false);
 			midMech.set_value(true);
@@ -327,26 +418,28 @@ void autonomous(){
 	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	auton = true;
 	pros::Task intakeAutonControl(intakeAutonController);
-	// rightside7();
-	// rightside4plus3();
-	// leftside();
-	switch (AutonSelector::getSelectedRoute()) {
-		case AutonRoute::SKILLS:
-			skills();
-			break;
-		case AutonRoute::RIGHT_SIDE:
-			rightside7();
-			break;
-		case AutonRoute::LEFT_SIDE:
-			leftside();
-			break;
-		case AutonRoute::SOLO_AWP:
-			soloAWP();
-			break;
-		case AutonRoute::DO_NOTHING:
-			// Do nothing - robot stays still
-			break;
-	}
+	soloAWP();
+	// rightside7(); // good
+	// // rightside4plus3();
+	// leftside(); // good
+	// leftsideAlt(); // good
+	// switch (AutonSelector::getSelectedRoute()) {
+	// 	case AutonRoute::SKILLS:
+	// 		skills();
+	// 		break;
+	// 	case AutonRoute::RIGHT_SIDE:
+	// 		rightside7();
+	// 		break;
+	// 	case AutonRoute::LEFT_SIDE:
+	// 		leftside();
+	// 		break;
+	// 	case AutonRoute::SOLO_AWP:
+	// 		soloAWP();
+	// 		break;
+	// 	case AutonRoute::DO_NOTHING:
+	// 		// Do nothing - robot stays still
+	// 		break;
+	// }
 }
 
 /**
