@@ -206,44 +206,6 @@ void rightside7(){
 	chassis.moveToPoint(28, 35, 3000, {.forwards=false,.maxSpeed = 60}, false);
 }
 
-void rightside7Fast(){
-	// set position to x:0, y:0, heading:0
-    chassis.setPose(0, 0, 0);
-    // turn to face heading 90 with a very long timeout
-	doinker.set_value(true);
-
-	changeIntakeState(false, true, false, false, false, false);
-	//chassis.moveToPose(13, 32, 24, 2000, {.minSpeed = 60});
-	chassis.moveToPose(9.5, 27, 26, 1500, {.minSpeed = 75, .earlyExitRange = 2.75});
-	//chassis.turnToHeading(150, 500, {.earlyExitRange = 30}, false);
-	//chassis.turnToPoint(37, 5, 1000, {.minSpeed = 60, .earlyExitRange = 5});
-	chassis.swingToHeading(200, DriveSide::RIGHT, 1000, {.minSpeed = 60, .earlyExitRange = 20});
-	//chassis.swingToPoint(37, 1.5, DriveSide::RIGHT, 2000, {.minSpeed = 60, .earlyExitRange = 1});
-	chassis.moveToPoint(37, 6, 1000, {.earlyExitRange = 1});
-
-	// pros::delay(500);
-	// tongue.set_value(true);
-	// chassis.waitUntilDone();
-	// pros::delay(200);
-	// chassis.turnToHeading(130, 600, {}, false);
-	
-	// chassis.moveToPoint(37, 6, 1000, {.earlyExitRange = 1});
-	// chassis.turnToHeading(180,  300);
-
-	
-	// chassis.moveToPose(37 ,-20, 180, 1600, {.maxSpeed = 80, .minSpeed = 50});
-	// tongue.set_value(true);
-	// chassis.moveToPose(37, 30, 180,  1000, {.forwards = false, .minSpeed = 70}, false);
-	// changeIntakeState(false, false, true, false, false, false);
-	// pros::delay(1800);
-	// tongue.set_value(false);
-	
-	// chassis.moveToPoint(28, 8, 1000);
-	// chassis.turnToHeading(180, 300, {}, false);
-	// doinker.set_value(false);
-	// chassis.moveToPoint(28, 35, 3000, {.forwards=false,.maxSpeed = 60}, false);
-}
-
 void leftside(){
 	chassis.setPose(0, 0, 0);
 	doinker.set_value(true);
@@ -413,7 +375,6 @@ void rightside4plus3Alt(){
 	chassis.moveToPoint(27, 35, 3000, {.forwards=false,.minSpeed = 60}, false);
 }
 
-void skills(){}
 void soloAWP(){
 	chassis.setPose(-10, -2, 270);
 	changeIntakeState(false, true, false, false, false, false);
