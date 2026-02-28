@@ -6,9 +6,11 @@
  * @brief Available autonomous routes
  */
 enum class AutonRoute {
-    SKILLS,
     RIGHT_SIDE,
+    RIGHT_4PLUS3,
+    RIGHT_4PLUS3_ALT,
     LEFT_SIDE,
+    LEFT_ALT,
     SOLO_AWP,
     DO_NOTHING
 };
@@ -69,7 +71,7 @@ private:
     static lv_obj_t* titleLabel;
     static lv_obj_t* selectionLabel;
     static lv_obj_t* allianceSwitch;
-    static lv_obj_t* routeButtons[5];
+    static lv_obj_t* routeButtons[7];
     
     // Button styles
     static lv_style_t styleDefault;

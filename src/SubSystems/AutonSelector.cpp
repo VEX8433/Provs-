@@ -6,14 +6,14 @@
 extern lemlib::Chassis chassis;
 
 // Static member definitions
-AutonRoute AutonSelector::selectedRoute = AutonRoute::SKILLS;
+AutonRoute AutonSelector::selectedRoute = AutonRoute::RIGHT_SIDE;
 Alliance AutonSelector::selectedAlliance = Alliance::RED;
 
 lv_obj_t* AutonSelector::screen = nullptr;
 lv_obj_t* AutonSelector::titleLabel = nullptr;
 lv_obj_t* AutonSelector::selectionLabel = nullptr;
 lv_obj_t* AutonSelector::allianceSwitch = nullptr;
-lv_obj_t* AutonSelector::routeButtons[5] = {nullptr};
+lv_obj_t* AutonSelector::routeButtons[7] = {nullptr};
 
 lv_style_t AutonSelector::styleDefault;
 lv_style_t AutonSelector::styleSelected;
@@ -22,12 +22,14 @@ lv_style_t AutonSelector::styleBlue;
 
 const char* AutonSelector::getRouteName(AutonRoute route) {
     switch (route) {
-        case AutonRoute::SKILLS:     return "SKILLS";
-        case AutonRoute::RIGHT_SIDE: return "RIGHT SIDE";
-        case AutonRoute::LEFT_SIDE:  return "LEFT SIDE";
-        case AutonRoute::SOLO_AWP:   return "SOLO AWP";
-        case AutonRoute::DO_NOTHING: return "DO NOTHING";
-        default:                     return "UNKNOWN";
+        case AutonRoute::RIGHT_SIDE:      return "RIGHT SIDE";
+        case AutonRoute::RIGHT_4PLUS3:    return "RIGHT 4+3";
+        case AutonRoute::RIGHT_4PLUS3_ALT:return "RIGHT 4+3 ALT";
+        case AutonRoute::LEFT_SIDE:       return "LEFT SIDE";
+        case AutonRoute::LEFT_ALT:        return "LEFT ALT";
+        case AutonRoute::SOLO_AWP:        return "SOLO AWP";
+        case AutonRoute::DO_NOTHING:      return "DO NOTHING";
+        default:                          return "UNKNOWN";
     }
 }
 
@@ -89,17 +91,19 @@ void AutonSelector::createUI() {
     };
     
     ButtonDef buttons[] = {
-        {"SKILLS",     AutonRoute::SKILLS,     20,  45},
-        {"RIGHT",      AutonRoute::RIGHT_SIDE, 130, 45},
-        {"LEFT",       AutonRoute::LEFT_SIDE,  240, 45},
-        {"SOLO AWP",   AutonRoute::SOLO_AWP,   350, 45},
-        {"DO NOTHING", AutonRoute::DO_NOTHING, 175, 110}
+        {"RIGHT",       AutonRoute::RIGHT_SIDE,      10,  45},
+        {"RIGHT 4+3",   AutonRoute::RIGHT_4PLUS3,    125, 45},
+        {"R 4+3 ALT",   AutonRoute::RIGHT_4PLUS3_ALT,240, 45},
+        {"LEFT",        AutonRoute::LEFT_SIDE,       355, 45},
+        {"LEFT ALT",    AutonRoute::LEFT_ALT,         10, 110},
+        {"SOLO AWP",    AutonRoute::SOLO_AWP,        125, 110},
+        {"DO NOTHING",  AutonRoute::DO_NOTHING,      240, 110}
     };
     
     // Create route buttons
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
         routeButtons[i] = lv_btn_create(screen);
-        lv_obj_set_size(routeButtons[i], 100, 55);
+        lv_obj_set_size(routeButtons[i], 105, 55);
         lv_obj_set_pos(routeButtons[i], buttons[i].x, buttons[i].y);
         lv_obj_add_style(routeButtons[i], &styleDefault, 0);
         
@@ -112,9 +116,6 @@ void AutonSelector::createUI() {
         lv_label_set_text(label, buttons[i].label);
         lv_obj_center(label);
     }
-    
-    // Make "DO NOTHING" button wider
-    lv_obj_set_size(routeButtons[4], 130, 55);
     
     // Alliance toggle section
     lv_obj_t* allianceLabel = lv_label_create(screen);
@@ -158,7 +159,7 @@ void AutonSelector::updateSelection() {
     lv_label_set_text(selectionLabel, buf);
     
     // Update button styles
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
         AutonRoute btnRoute = (AutonRoute)(intptr_t)lv_obj_get_user_data(routeButtons[i]);
         
         // Remove all custom styles first

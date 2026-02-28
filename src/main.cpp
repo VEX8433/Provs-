@@ -495,24 +495,30 @@ void autonomous(){
 	// rightside4plus3();
 	// rightside4plus3Alt();
 	// leftside(); // good
-	leftsideAlt(); // good
-	// switch (AutonSelector::getSelectedRoute()) {
-	// 	case AutonRoute::SKILLS:
-	// 		skills();
-	// 		break;
-	// 	case AutonRoute::RIGHT_SIDE:
-	// 		rightside7();
-	// 		break;
-	// 	case AutonRoute::LEFT_SIDE:
-	// 		leftside();
-	// 		break;
-	// 	case AutonRoute::SOLO_AWP:
-	// 		soloAWP();
-	// 		break;
-	// 	case AutonRoute::DO_NOTHING:
-	// 		// Do nothing - robot stays still
-	// 		break;
-	// }
+	// leftsideAlt(); // good
+	switch (AutonSelector::getSelectedRoute()) {
+		case AutonRoute::RIGHT_SIDE:
+			rightside7();
+			break;
+		case AutonRoute::RIGHT_4PLUS3:
+			rightside4plus3();
+			break;
+		case AutonRoute::RIGHT_4PLUS3_ALT:
+			rightside4plus3Alt();
+			break;
+		case AutonRoute::LEFT_SIDE:
+			leftside();
+			break;
+		case AutonRoute::LEFT_ALT:
+			leftsideAlt();
+			break;
+		case AutonRoute::SOLO_AWP:
+			soloAWP();
+			break;
+		case AutonRoute::DO_NOTHING:
+			// Do nothing - robot stays still
+			break;
+	}
 }
 
 /**
