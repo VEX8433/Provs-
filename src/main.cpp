@@ -552,10 +552,6 @@ void soloAWP(){
 bool auton = true;
 void intakeAutonController(){
 	while(auton){
-		pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
-		pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
-		pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
-
 		if(primeMid){
 			intakeRaise.set_value(false);
 			midMech.set_value(true);
@@ -618,6 +614,7 @@ void intakeAutonController(){
 			intakeTop.move_velocity(0);
 			intakeBottom.move_velocity(0);
 		}
+		pros::delay(20);
 	}
 }
 
