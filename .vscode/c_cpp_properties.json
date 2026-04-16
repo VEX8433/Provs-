@@ -12,7 +12,7 @@
         "UNICODE",
         "_UNICODE"
       ],
-      "compilerPath": "c:\\Users\\Rohan\\AppData\\Roaming\\Code\\User\\globalStorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\arm-none-eabi-g++",
+      "compilerPath": "/Users/kennyshi/Library/Application Support/Code/User/globalStorage/sigbots.pros/install/pros-toolchain-macos/bin/arm-none-eabi-g++",
       "cStandard": "gnu11",
       "cppStandard": "gnu++20",
       "intelliSenseMode": "gcc-arm",
@@ -21,7 +21,7 @@
       ],
       "browse": {
         "path": [
-          "c:\\Users\\Rohan\\Desktop\\vex_pushback\\Provs-"
+          "/Users/kennyshi/Desktop/Computer/PROS/2026PushBack/Provs-"
         ],
         "limitSymbolsToIncludedHeaders": true,
         "databaseFilename": ""

@@ -9,7 +9,6 @@
 #include "lemlib/api.hpp"
 #include "pros/abstract_motor.hpp"
 #include <cstddef>
-
 #include "pros/misc.h"
 #include "pros/adi.hpp"
 #include "pros/rtos.h"
@@ -40,7 +39,9 @@ pros::Motor intakeBottom(10, pros::v5::MotorGears::blue);
 pros::Imu inertial(7);
 pros::Distance distance(14);
 pros::Distance distance2(15);
-pros::Rotation tracking(11);
+pros::Rotation vert_tracking(-4);
+pros::Rotation hor_tracking(-1);
+
 
 Intake intake(intakeTop, intakeBottom, hood, midMech, intakeRaise, distance, distance2);
 
@@ -53,12 +54,14 @@ lemlib::Drivetrain drivetrain(
 	1 // horizontal drift is 0 (for now)
 );
 
-lemlib::TrackingWheel vertical_tracking_wheel(&tracking, lemlib::Omniwheel::NEW_2, -0.75);
+lemlib::TrackingWheel vertical_tracking_wheel(&vert_tracking, lemlib::Omniwheel::NEW_2, -0.75);
+lemlib::TrackingWheel horizontal_tracking_wheel(&hor_tracking, lemlib::Omniwheel::NEW_2, -3.25);
+
 
 lemlib::OdomSensors sensors(
 	&vertical_tracking_wheel, // vertical tracking wheel 1, set to null
 	nullptr, 
-	nullptr, 
+	&horizontal_tracking_wheel, 
 	nullptr,
 	&inertial // inertial sensor
 );
@@ -112,13 +115,27 @@ lemlib::Chassis chassis(drivetrain, // drivetrain settings
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+
 void initialize() {
-    pros::lcd::initialize(); // initialize brain screen
     
     // Initialize autonomous route selector UI
-    AutonSelector::init();
-	chassis.calibrate();
+    //AutonSelector::init();
+    pros::lcd::initialize(); // initialize brain screen
+    chassis.calibrate(); // calibrate sensors
+    // print position to brain screen
+    pros::Task screen_task([&]() {
+        while (true) {
+            // print robot location to the brain screen
+            pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+            // delay to save resources
+            pros::delay(20);
+        }
+    });
 }
+
+
 /**
  * Runs while the robot is in the disabled state of Field Management System or
  * the VEX Competition Switch, following either autonomous or opcontrol. When
@@ -189,10 +206,12 @@ void rightside7(){
 	pros::delay(200);
 	chassis.turnToHeading(130, 600, {}, false);
 	
+	
+	pros::delay(20000000);
 	chassis.moveToPoint(37, 6, 1000, {.earlyExitRange = 1});
 	chassis.turnToHeading(180,  300);
 
-	
+
 	chassis.moveToPose(37 ,-20, 180, 1600, {.maxSpeed = 80, .minSpeed = 50});
 	tongue.set_value(true);
 	chassis.moveToPose(37, 30, 180,  1000, {.forwards = false, .minSpeed = 70}, false);
@@ -204,6 +223,26 @@ void rightside7(){
 	chassis.turnToHeading(180, 300, {}, false);
 	doinker.set_value(false);
 	chassis.moveToPoint(28, 35, 3000, {.forwards=false,.maxSpeed = 60}, false);
+}
+
+void elim_left(){
+	// chassis.moveToPose(9.5, 43.5) = midgoal point
+	chassis.setPose(-10, 40, -135);
+	// chassis.moveToPose(-45.5, 32.5, 0, 1500, {.minSpeed = 50, .earlyExitRange = 10}, false);
+	// chassis.moveToPoint(-45.5, 36, 1500, {.maxSpeed = 90});
+	// doinker.set_value(false);
+	// chassis.turnToHeading(145, 1000);
+	chassis.moveToPose(-32, 32, -90, 3000, {.minSpeed = 120, .earlyExitRange=3}, false);
+	chassis.swingToHeading(0, DriveSide::RIGHT, 750, {.minSpeed = 90});
+	// chassis.moveToPoint(-3, 15, 800, {.earlyExitRange = 0}, false);
+	// //pros::delay(200);
+	// chassis.turnToHeading(0, 1000, {}, false);
+	// doinker.set_value(false);
+	chassis.moveToPoint(-37, 39, 1000, {.minSpeed = 120});
+	chassis.setPose(-37, 39, 0);
+	chassis.moveToPoint(-35.5, 57, 350, {.minSpeed = 120});
+	chassis.turnToHeading(45, 250);
+
 }
 
 void leftside(){
@@ -242,13 +281,68 @@ void leftside(){
 	pros::delay(1500);
 	tongue.set_value(false);
 	// back out of long goal
-	chassis.moveToPoint(-46, 10, 1000);
+	chassis.moveToPoint(-45.5, 10, 1000);
 	chassis.turnToHeading(180, 300, {}, false);
 	doinker.set_value(false);
-	chassis.moveToPoint(-46, 32.5, 3000, {.forwards=false,.minSpeed = 80}, false);
+	chassis.moveToPoint(-45.5, 32.5, 3000, {.forwards=false,.minSpeed = 80}, false);
+	chassis.turnToHeading(145, 1000);
 }
 
 void leftsideAlt(){
+	chassis.setPose(-1, 0, 0);
+	doinker.set_value(true);
+
+	changeIntakeState(false, true, false, false, false, false);
+	chassis.moveToPose( -10, 26, -21, 1500, {.minSpeed = 60});
+	pros::delay(600);
+	tongue.set_value(true);
+	chassis.waitUntilDone();
+	//chassis.moveToPose( -13.5, 31.5, -21, 500, {.minSpeed = 60}, false);
+	pros::delay(200);
+	chassis.turnToHeading(-125, 250, {}, false); // fix
+
+	chassis.moveToPoint(-37, 3, 1500, {.maxSpeed = 90});
+	pros::delay(200);
+
+	chassis.turnToHeading(180, 250);
+	tongue.set_value(true);
+	// go into match load
+	chassis.moveToPoint(-36, -20, 1450, {.maxSpeed = 50});
+	chassis.moveToPoint(-36, 30, 1200, {.forwards=false,.maxSpeed = 80}, false);
+	
+	changeIntakeState(false, false, true, false, false, false);
+	pros::delay(600);
+	changeIntakeState(false, true, false, false, false, false);
+	tongue.set_value(false);
+	// back out of long goal
+	chassis.moveToPoint(-36, 7, 1000, {}, false);
+	changeIntakeState(false, false, false, false, false, true);
+	chassis.moveToPose(9.5, 43.5, -131, 1000,{.forwards=false, .maxSpeed = 80}, false);
+	pros::delay(3000);
+	chassis.moveToPose(9.5, 43.5, -131, 1000, {.forwards=false, .minSpeed = 100}, false);
+	changeIntakeState(false, false, false, true, false, false);
+	pros::delay(1200);
+	changeIntakeState(false, true, false, false, false, false);
+
+	chassis.setPose(-10, 40, -135);
+	// chassis.moveToPose(-45.5, 32.5, 0, 1500, {.minSpeed = 50, .earlyExitRange = 10}, false);
+	// chassis.moveToPoint(-45.5, 36, 1500, {.maxSpeed = 90});
+	// doinker.set_value(false);
+	// chassis.turnToHeading(145, 1000);
+	doinker.set_value(false);
+	chassis.moveToPose(-32, 32, -90, 3000, {.minSpeed = 120, .earlyExitRange=3}, false);
+	chassis.swingToHeading(0, DriveSide::RIGHT, 750, {.minSpeed = 90});
+	// chassis.moveToPoint(-3, 15, 800, {.earlyExitRange = 0}, false);
+	// //pros::delay(200);
+	// chassis.turnToHeading(0, 1000, {}, false);
+	// doinker.set_value(false);
+	chassis.moveToPoint(-37, 39, 1000, {.minSpeed = 120});
+	chassis.setPose(-37, 39, 0);
+	chassis.moveToPoint(-35.5, 45, 500, {.minSpeed = 120});
+	chassis.turnToHeading(45, 500);
+}
+
+void leftsideAlt2(){
 	chassis.setPose(-1, 0, 0);
 	doinker.set_value(true);
 
@@ -277,17 +371,53 @@ void leftsideAlt(){
 	// back out of long goal
 	chassis.moveToPoint(-36, 7, 1000, {}, false);
 	changeIntakeState(false, false, false, false, false, true);
-	chassis.moveToPose(9.5, 43.5, -131, 2000,{.forwards=false, .minSpeed = 80}, false);
+	chassis.moveToPose(9.5, 43.5, -131, 1500,{.forwards=false, .minSpeed = 100}, false);
 	changeIntakeState(false, false, false, true, false, false);
-	pros::delay(1000);
+	pros::delay(1200);
 	changeIntakeState(false, true, false, false, false, false);
 
-	chassis.moveToPoint(-24, 15, 1000);
-	
-	chassis.turnToHeading(0, 1000, {}, false);
+	// mid goal high
+	chassis.setPose(-10, 40, -135);
+	// chassis.moveToPose(-45.5, 32.5, 0, 1500, {.minSpeed = 50, .earlyExitRange = 10}, false);
+	// chassis.moveToPoint(-45.5, 36, 1500, {.maxSpeed = 90});
+	// doinker.set_value(false);
+	// chassis.turnToHeading(145, 1000);
 	doinker.set_value(false);
-	chassis.moveToPoint(-24, 30, 3000, {.minSpeed = 80}, false);
-	chassis.turnToHeading(45, 1000);
+	chassis.moveToPose(-32, 32, -90, 3000, {.minSpeed = 120, .earlyExitRange=3}, false);
+	chassis.swingToHeading(0, DriveSide::RIGHT, 750, {.minSpeed = 90});
+	// chassis.moveToPoint(-3, 15, 800, {.earlyExitRange = 0}, false);
+	// //pros::delay(200);
+	// chassis.turnToHeading(0, 1000, {}, false);
+	// doinker.set_value(false);
+	chassis.moveToPoint(-37, 39, 1000, {.minSpeed = 120});
+	chassis.setPose(-37, 39, 0);
+	chassis.moveToPoint(-35.5, 45, 500, {.minSpeed = 120});
+	chassis.turnToHeading(45, 500);
+}
+
+
+void rightside7_motionchain(){
+	// set position to x:0, y:0, heading:0
+    chassis.setPose(0, 0, 0);
+    // turn to face heading 90 with a very long timeout
+	doinker.set_value(true);
+
+	changeIntakeState(false, true, false, false, false, false);
+
+	chassis.moveToPose(13, 32, 24, 750, {.minSpeed = 70, .earlyExitRange = 2.5}, true);
+	pros::delay(500);
+
+	tongue.set_value(true);
+	//chassis.waitUntilDone();
+	//pros::delay(200);
+
+	chassis.swingToHeading(130, DriveSide::RIGHT, 60000, {.minSpeed = 90});
+
+	//chassis.turnToHeading(-45, 600, {}, false);
+	
+	// chassis.moveToPoint(37, 6, 1000, {.earlyExitRange = 0});
+	// chassis.turnToHeading(180,  300, {}, false); 
+
 }
 
 void rightside4plus3(){
@@ -304,20 +434,20 @@ void rightside4plus3(){
 	pros::delay(200);
 	chassis.turnToHeading(-45, 1000, {}, false);
 	tongue.set_value(false);
-	chassis.moveToPose(-8, 45, 131, 800,{.minSpeed = 60}, false);
+	chassis.moveToPose(-9, 45, 131, 800,{.minSpeed = 60}, false);
 	changeIntakeState(false, false, false, false, false, false);
 	scoreSlow(false, true);
-	pros::delay(700);
+	pros::delay(900);
 	scoreSlow(false, false);
 	changeIntakeState(false, true, false, false, false, false);
 
 	chassis.moveToPoint(36, 3, 1700, {.forwards = false}, false);
 	tongue.set_value(true);
-	pros::delay(300);
+	pros::delay(200);
 	chassis.turnToHeading(180,  1000, {}, false);
 
 	
-	chassis.moveToPose(35, -25, 180, 1500, {.maxSpeed = 50, .minSpeed = 50}, false);
+	chassis.moveToPose(34.5, -25, 180, 1500, {.maxSpeed = 50, .minSpeed = 50}, false);
 	chassis.moveToPose(36, 30, 180,  1000, {.forwards = false, .minSpeed = 70}, false);
 	changeIntakeState(false, false, true, false, false, false);
 	pros::delay(1200);
@@ -326,8 +456,8 @@ void rightside4plus3(){
 	chassis.moveToPoint(27, 8, 1000);
 	chassis.turnToHeading(180, 300, {}, false);
 	doinker.set_value(false);
-	chassis.moveToPoint(27, 30, 3000, {.forwards=false,.minSpeed = 60}, false);
-}
+	chassis.moveToPoint(27, 30, 3000, {.forwards=false,.minSpeed = 60}, false);}
+
 
 void rightside4plus3Alt(){
 	// set position to x:0, y:0, heading:0
@@ -360,7 +490,7 @@ void rightside4plus3Alt(){
 
 	chassis.turnToHeading(-45, 1000, {}, false);
 	tongue.set_value(false);
-	chassis.moveToPose(-7, 45, -45, 2000,{.minSpeed = 100});
+	chassis.moveToPose(-7, 43, -45, 2000,{.minSpeed = 100});
 	pros::delay(500);
 	changeIntakeState(false, false, false, false, false, false);
 	scoreSlow(false, true);
@@ -368,11 +498,12 @@ void rightside4plus3Alt(){
 	scoreSlow(false, false);
 	changeIntakeState(false, true, false, false, false, false);
 
-	chassis.moveToPoint(27, 15, 2000, {.forwards = false});
+	chassis.moveToPoint(27.5, 15, 2000, {.forwards = false});
 	pros::delay(300);
 	chassis.turnToHeading(180, 600, {}, false);
 	doinker.set_value(false);
 	chassis.moveToPoint(27, 35, 3000, {.forwards=false,.minSpeed = 60}, false);
+	chassis.turnToHeading(130, 1000);
 }
 
 void soloAWP(){
@@ -384,7 +515,7 @@ void soloAWP(){
 	chassis.turnToHeading(180, 300);
 	tongue.set_value(true);
 
-	chassis.moveToPose(36, -20, 180, 1500, {.maxSpeed = 50, .minSpeed = 50});
+	chassis.moveToPose(36, -25, 180, 1500, {.maxSpeed = 50, .minSpeed = 50});
 	chassis.moveToPose(36, 30, 180,  900, {.forwards = false, .minSpeed = 100}, false);
 	chassis.moveToPose(36, 50, 180,  800, {.forwards = false, .maxSpeed = 20});
 	changeIntakeState(false, false, true, false, false, false);
@@ -403,7 +534,7 @@ void soloAWP(){
 	tongue.set_value(true);
 	chassis.turnToHeading(225, 300, {}, false);
 	changeIntakeState(false, false, false, false, false, true);
-	chassis.moveToPoint(-10, 60, 600, {.forwards=false}, false);
+	chassis.moveToPoint(-10, 61, 600, {.forwards=false}, false);
 	changeIntakeState(false, false, false, false, false, false);
 	scoreSlow(true, false);
 	pros::delay(700);
@@ -421,6 +552,10 @@ void soloAWP(){
 bool auton = true;
 void intakeAutonController(){
 	while(auton){
+		pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+		pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+		pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+
 		if(primeMid){
 			intakeRaise.set_value(false);
 			midMech.set_value(true);
@@ -468,7 +603,7 @@ void intakeAutonController(){
 		}
 		else if(scoreMidSlow){
 			intakeRaise.set_value(false);
-			intakeTop.move_velocity(400);
+			intakeTop.move_velocity(600);
 			intakeBottom.move_velocity(600);
 			hood.set_value(false);
 			midMech.set_value(true);
@@ -490,35 +625,37 @@ void autonomous(){
 	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	auton = true;
 	pros::Task intakeAutonControl(intakeAutonController);
+	// elim_left();
 	// soloAWP();
-	// rightside7(); // good
-	// rightside4plus3();
+	rightside7_motionchain(); // good
+	//rightside4plus3();
 	// rightside4plus3Alt();
 	// leftside(); // good
 	// leftsideAlt(); // good
-	switch (AutonSelector::getSelectedRoute()) {
-		case AutonRoute::RIGHT_SIDE:
-			rightside7();
-			break;
-		case AutonRoute::RIGHT_4PLUS3:
-			rightside4plus3();
-			break;
-		case AutonRoute::RIGHT_4PLUS3_ALT:
-			rightside4plus3Alt();
-			break;
-		case AutonRoute::LEFT_SIDE:
-			leftside();
-			break;
-		case AutonRoute::LEFT_ALT:
-			leftsideAlt();
-			break;
-		case AutonRoute::SOLO_AWP:
-			soloAWP();
-			break;
-		case AutonRoute::DO_NOTHING:
-			// Do nothing - robot stays still
-			break;
-	}
+	// leftsideAlt2();
+	// switch (AutonSelector::getSelectedRoute()) {
+	// 	case AutonRoute::RIGHT_SIDE:
+	// 		rightside7();
+	// 		break;
+	// 	case AutonRoute::RIGHT_4PLUS3:
+	// 		rightside4plus3();
+	// 		break;
+	// 	case AutonRoute::RIGHT_4PLUS3_ALT:
+	// 		rightside4plus3Alt();
+	// 		break;
+	// 	case AutonRoute::LEFT_SIDE:
+	// 		leftside();
+	// 		break;
+	// 	case AutonRoute::LEFT_ALT:
+	// 		leftsideAlt();
+	// 		break;
+	// 	case AutonRoute::SOLO_AWP:
+	// 		soloAWP();
+	// 		break;
+	// 	case AutonRoute::DO_NOTHING:
+	// 		// Do nothing - robot stays still
+	// 		break;
+	// }
 }
 
 /**
@@ -537,7 +674,7 @@ void autonomous(){
 
 void driveTelop(int leftY, int rightX){// 127, -127
     // https://www.desmos.com/calculator/lve1dfzzku
-    double t = 5;
+    double t = 10;
     float forward = 4.7244 * leftY;
     // float forward = (exp(-(t/10))+exp((abs(leftY)-127)/10)*(1- exp(-(t/10))))*leftY * 4.7244;
     // float turn = 3.5 * rightX;//4.7244 * rightX
